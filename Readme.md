@@ -13,6 +13,7 @@ A modern and minimalistic boilerplate for Node.js applications using TypeScript.
 - **Hot Reloading**: Development-friendly with `ts-node-dev`.
 - **MongoDB Integration**: `mongoose` for database interaction.
 - **Production-Ready**: Easy-to-build scripts for deployment.
+- **Modular Structure**: Organized and scalable code with a modular architecture.
 
 ---
 
@@ -46,7 +47,7 @@ A modern and minimalistic boilerplate for Node.js applications using TypeScript.
 
    ```env
    PORT=3000
-   DATABASE_URL=your_mongo_db_connection_string
+   MONGO_URI=mongodb+srv://<UserName>:<Password>@cluster0.vwiqv.mongodb.net/<DatabaseName>?retryWrites=true&w=majority
    ```
 
 4. **Run the application:**
@@ -75,6 +76,12 @@ node-typescript-boilerplate/
 │   ├── app/
 │   │   ├── config/       # Configuration files
 │   │   ├── modules/      # Modularized features or routes
+│   │   │   └── example/  # Example module
+│   │   │       ├── example.controller.ts   # Handles HTTP requests and responses
+│   │   │       ├── example.interfaces.ts   # TypeScript interfaces for the module
+│   │   │       ├── example.model.ts        # Database schema and model
+│   │   │       ├── example.route.ts        # Defines API routes for the module
+│   │   │       └── example.service.ts      # Business logic for the module
 │   │   └── app.ts        # Main application setup
 │   ├── server.ts        # Entry point
 ├── .env                 # Environment variables
@@ -84,6 +91,39 @@ node-typescript-boilerplate/
 ├── tsconfig.json        # TypeScript configuration
 ├── package.json         # Project metadata and scripts
 ├── yarn.lock            # Dependency lock file
+```
+
+---
+
+## Modular Architecture
+
+This boilerplate uses a modular structure to organize code. Each module encapsulates related functionality, making the application easy to scale and maintain.
+
+### Example Module
+
+Each module follows this structure:
+
+```plaintext
+src/app/modules/<module-name>/
+├── <module-name>.controller.ts   # Handles HTTP requests and responses
+├── <module-name>.interfaces.ts   # TypeScript interfaces or types for the module
+├── <module-name>.model.ts        # Database schema and interactions
+├── <module-name>.route.ts        # Defines and exports the module's API routes
+├── <module-name>.service.ts      # Business logic for the module
+```
+
+### Adding a New Module
+
+1. Create a new folder in `src/app/modules/` with your module's name.
+2. Add the required files (`controller`, `service`, `model`, `route`, and `interfaces`).
+3. Register the module in `app.ts` or `server.ts` by importing its routes.
+
+Example route registration in `server.ts`:
+
+```typescript
+import exampleRoutes from './app/modules/example/example.route';
+
+app.use('/api/example', exampleRoutes);
 ```
 
 ---
